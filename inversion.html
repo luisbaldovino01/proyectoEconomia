@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="uniformes.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor">
+            <p class="logo">PROYECTO FINAL: ECONOMIA</p>
+            <nav>
+                <a href="home.html">Home</a>
+                <a href="#section-thirt">Calculadora</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <article id="evaluacion-inversiones">
+            <h3>Evaluación de Alternativas de Inversión</h3>
+            <p>La evaluación financiera de alternativas de inversión se realiza para determinar si una inversión generará valor para los accionistas. Se utilizan indicadores como el Valor Presente Neto (VPN), la Tasa Interna de Retorno (TIR), el Índice de Rentabilidad (C/B), y el tiempo de recuperación de la inversión (Payback).</p>
+            <h4>Indicadores</h4>
+            <ul>
+                <li><strong>Valor Presente Neto (VPN):</strong> Es la diferencia entre el valor presente de los ingresos y el valor presente de los egresos.</li>
+                <li><strong>Tasa Interna de Retorno (TIR):</strong> Es la tasa de interés que hace que el VPN sea igual a cero, es decir, iguala los flujos netos efectivos con la inversión.</li>
+                <li><strong>Índice de Rentabilidad (C/B):</strong> Es la relación entre el valor presente de los ingresos y el valor presente de los egresos. Un valor mayor a 1 indica que la inversión es rentable.</li>
+                <li><strong>Tiempo de Recuperación (Payback):</strong> Es el tiempo que se tarda en recuperar la inversión inicial a partir de los flujos netos de efectivo.</li>
+                </ul>
+                <h4>Fórmulas</h4>
+                <p>Valor Presente Neto (VPN):</p>
+                <pre>VPN = ∑(FNE_t / (1 + r)^t) - I</pre>
+                <p>Tasa Interna de Retorno (TIR):</p>
+                <pre>0 = ∑(FNE_t / (1 + TIR)^t) - I</pre>
+                <p>Índice de Rentabilidad (C/B):</p>
+                <pre>C/B = Valor Presente de los Ingresos / Valor Presente de los Egresos</pre>
+                <h4>Ejemplo</h4>
+                <p>Calcular el VPN de una inversión inicial de $1000 con los siguientes flujos netos de efectivo anuales y una tasa de descuento del 20% anual:</p>
+                <pre>
+                Año 1: $350
+                Año 2: $380
+                Año 3: $400
+                Año 4: $500
+                VPN = -1000 + (350 / (1 + 0.20)^1) + (380 / (1 + 0.20)^2) + (400 / (1 + 0.20)^3) + (500 / (1 + 0.20)^4)
+                VPN = $28.16
+                </pre>
+            </article>
+
+
+    </div>
+</body>
+</html>

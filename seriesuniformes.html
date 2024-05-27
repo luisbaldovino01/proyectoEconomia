@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="uniformes.css">
+    <title>Series Uniformes</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor">
+            <p class="logo">PROYECTO FINAL: ECONOMIA</p>
+            <nav>
+                <a href="home.html">Home</a>
+                <a href="#section-thirt">Calculadora</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <h1>Series Uniformes (Anualidades)</h1>
+        <p>Las series uniformes son sucesiones de pagos iguales realizados a intervalos de tiempo iguales a una tasa de
+            interés compuesta. Se utilizan comúnmente en créditos comerciales y bancarios.</p>
+        <h3>Tipos de Anulidades</h3>
+        <ul>
+            <li>
+                <b>Anualidad Vencida: </b>Los pagos se realizan al final de cada período.
+            </li>
+            <li>
+                <b>Anualidad Anticipada</b>Los pagos se realizan al inicio de cada período.
+            </li>
+            <li>
+                <b>Anualidad Diferida: </b>El primer pago se realiza unos periodos después de iniciada la operación
+                financiera.
+            </li>
+            <li>
+                <b>Anualidad Perpetua: </b>No existe un límite de tiempo para los pagos, es decir, n tiende a infinito
+            </li>
+        </ul>
+
+        <h4>Fórmulas</h4>
+        <p>Valor Presente (VP) para una Anualidad Vencida:</p>
+        <pre>𝑉𝑝 = 𝐴 [(1 − (1 + 𝑖)^−𝑛) / 𝑖]</pre>
+        <p>Valor Futuro (VF) para una Anualidad Vencida:</p>
+        <pre>𝑉𝑓 = 𝐴 [((1 + 𝑖)^𝑛 − 1) / 𝑖]</pre>
+        <h4>Ejemplo</h4>
+        <p>Calcular el valor presente de una anualidad vencida con pagos mensuales de $2,000,000 a una tasa de interés
+            del
+            24% anual durante 36 meses.</p>
+        <pre>𝑉𝑝 = 2,000,000 [(1 − (1 + 0.02)^−36) / 0.02] = $50,977,685</pre> <br><br>
+
+        <strong>¡Tambien puedes ver ejemplos en Excel!</strong> <a href="https://docs.google.com/spreadsheets/d/1uZdZBMzIHySj7YIsAGFJIAcc2yM4dNja/edit?usp=sharing&ouid=100746931454553750417&rtpof=true&sd=true" target="_blank">Click Here</a> <br><br>
+        
+    </div>
+
+    <footer>
+        <div class="contenedor">
+            <p>Created by Luis Baldovino - Jesús Torres</p>
+        </div>
+    </footer>
+</body>
+
+</html>

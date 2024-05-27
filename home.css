@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Plus Jakarta Sans";
+    background-color: #cbcccf;
+    margin: 0;
+}
+
+.contenedor {
+    max-width: 1400px;
+    margin: auto;
+}
+
+header {
+    color: white;
+    background-color: #21262c;
+}
+
+.logo {
+    font-weight: Bold;
+    margin: 0;
+    padding: 25px;
+}
+
+header .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: gray;
+}
+
+header a:hover {
+    cursor: pointer;
+    color: white;
+}
+
+nav {
+    margin-right: 50px;
+}
+
+#principal {
+    margin: 20px 50px;
+    text-align: center;
+    background-color: #c6c7ca;
+    padding: 30px;
+}
+
+button {
+    background-color: #155dce;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#section-two a{
+    color: white;
+    text-decoration: none;
+}
+
+#section-thirt a{
+    color: white;
+    text-decoration: none;
+}
+
+#section-two .items{
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 300px 300px 300px 300px;
+    text-align: center;
+    gap: 40px;
+}
+
+#section-two .item{
+    background-color: white;
+    border-radius: 15px;
+    height: 360px;
+    padding: 10px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.35);
+}
+
+#section-two .item:hover{
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+#section-thirt{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+
+#section-thirt .items{
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 300px;
+    text-align: center;
+    gap: 40px;
+}
+
+#section-thirt .item{
+    background-color: #21262c;
+    color: white;
+    border-radius: 15px;
+    height: 300px;
+    padding: 10px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.35);
+}
+
+#section-thirt .item:hover{
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    background-color: #21262c;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    height: 10vh;
+}
+

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="calculadora.css">
+</head>
+<body>
+
+    <header>
+        <div class="contenedor">
+            <p class="logo">PROYECTO FINAL: ECONOMIA</p>
+            <nav>
+                <a href="home.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="contenedor">
+    <section id="ejercicios">
+        <h2>Ejercicios</h2>
+        <p>En esta sección puedes practicar con diferentes tipos de cálculos financieros. Elige el tipo de cálculo, suministra los valores necesarios y encuentra el resultado.</p>
+        <form id="form-ejercicios">
+            <label for="tipo-calculo">Tipo de Cálculo:</label>
+            <select id="tipo-calculo" name="tipo-calculo">
+                <option value="#">Selecciona uno</option>
+                <option value="valor-presente-anualidad-vencida">Valor Presente - Anualidad Vencida</option>
+                <option value="valor-futuro-anualidad-vencida">Valor Futuro - Anualidad Vencida</option>
+                <option value="valor-presente-anualidad-anticipada">Valor Presente - Anualidad Anticipada</option>
+                <option value="valor-futuro-anualidad-anticipada">Valor Futuro - Anualidad Anticipada</option>
+                <option value="valor-presente-gradiente-creciente">Valor Presente - Gradiente Creciente</option>
+                <option value="valor-futuro-gradiente-creciente">Valor Futuro - Gradiente Creciente</option>
+                <option value="valor-presente-gradiente-decreciente">Valor Presente - Gradiente Decreciente</option>
+                <option value="valor-futuro-gradiente-decreciente">Valor Futuro - Gradiente Decreciente</option>
+                <option value="cuota-gradiente-creciente">Cuota - Gradiente Creciente</option>
+                <option value="cuota-gradiente-decreciente">Cuota - Gradiente Decreciente</option>
+                <option value="valor-presente-gradiente-geometrico-creciente">Valor Presente - Gradiente Geometrico Creciente</option>
+                <option value="valor-presente-gradiente-geometrico-decreciente">Valor Presente - Gradiente Geometrico Decreciente</option>
+                <option value="anualidad">Cálculo de Anualidad</option>
+                <option value="vpn">Valor Presente Neto (VPN)</option>
+                <option value="tir">Tasa Interna de Retorno (TIR)</option>
+                <option value="cb">Índice de Rentabilidad (C/B)</option>
+                <option value="payback">Tiempo de Recuperación (Payback)</option>
+            </select>
+            <div id="inputs-dinamicos">
+                <!-- Los inputs se generarán dinámicamente con JavaScript según el tipo de cálculo seleccionado -->
+            </div>
+            <button type="button" onclick="calcular()">Calcular</button>
+        </form>
+        <div id="resultado">
+            <h3>Resultado:</h3>
+            <p id="resultado-valor"></p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('tipo-calculo').addEventListener('change', function() {
+            const tipoCalculo = this.value;
+            const inputsDinamicos = document.getElementById('inputs-dinamicos');
+            inputsDinamicos.innerHTML = '';
+    
+            switch (tipoCalculo) {
+                case 'valor-presente-anualidad-vencida':
+                case 'valor-futuro-anualidad-vencida':
+                case 'valor-presente-anualidad-anticipada':
+                case 'valor-futuro-anualidad-anticipada':
+                    inputsDinamicos.innerHTML = `
+                        <label for="cuota">Cuota (A):</label>
+                        <input type="number" id="cuota" name="cuota">
+                        <label for="tasa">Tasa de Interés (i):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                        <label for="periodos">Número de Períodos (n):</label>
+                        <input type="number" id="periodos" name="periodos">
+                    `;
+                    break;
+                case 'valor-presente-gradiente-creciente':
+                case 'valor-futuro-gradiente-creciente':
+                case 'valor-presente-gradiente-decreciente':
+                case 'valor-futuro-gradiente-decreciente':
+                    inputsDinamicos.innerHTML = `
+                        <label for="cuota">Cuota Inicial (A):</label>
+                        <input type="number" id="cuota" name="cuota">
+                        <label for="incremento">Incremento/Decremento (G):</label>
+                        <input type="number" id="incremento" name="incremento">
+                        <label for="tasa">Tasa de Interés (i):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                        <label for="periodos">Número de Períodos (n):</label>
+                        <input type="number" id="periodos" name="periodos">
+                    `;
+                    break;
+
+                case 'cuota-gradiente-creciente':
+                case 'cuota-gradiente-decreciente':
+                    inputsDinamicos.innerHTML = `
+                        <label for="vfinal">Valor Final (VF):</label>
+                        <input type="number" id="vfinal" name="vfinal">
+                        <label for="tasa">Tasa de Interés (i):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                        <label for="incremento">Incremento/Decremento (G):</label>
+                        <input type="number" id="incremento" name="incremento">
+                        <label for="periodos">Número de Períodos (n):</label>
+                        <input type="number" id="periodos" name="periodos">
+                    `;    
+                    break;
+
+                case 'valor-presente-gradiente-geometrico-creciente':
+                case 'valor-presente-gradiente-geometrico-decreciente':
+                    inputsDinamicos.innerHTML = `
+                        <label for="cuota">Cuota Inicial (A):</label>
+                        <input type="number" id="cuota" name="cuota">
+                        <label for="tasa">Tasa de Interés (i):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                        <label for="crecimiento">Tasa de Crecimiento/Decrecimiento (j):</label>
+                        <input type="number" id="crecimiento" name="crecimiento" step="0.01">
+                        <label for="periodos">Número de Períodos (n):</label>
+                        <input type="number" id="periodos" name="periodos">
+                    `;    
+                    break;
+                case 'anualidad':
+                    inputsDinamicos.innerHTML = `
+                        <label for="valor">Valor (VP o VF):</label>
+                        <input type="number" id="valor" name="valor">
+                        <label for="cuota">Cuota (A):</label>
+                        <input type="number" id="cuota" name="cuota">
+                        <label for="tasa">Tasa de Interés (i):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                        <label for="periodos">Número de Períodos (n):</label>
+                        <input type="number" id="periodos" name="periodos">
+                    `;
+                    break;
+                case 'vpn':
+                    inputsDinamicos.innerHTML = `
+                        <label for="inversion">Inversión Inicial (I):</label>
+                        <input type="number" id="inversion" name="inversion">
+                        <label for="flujos">Flujos Netos de Efectivo (FNE):</label>
+                        <input type="text" id="flujos" name="flujos" placeholder="Ej: 350,380,400,500">
+                        <label for="tasa">Tasa de Descuento (r):</label>
+                        <input type="number" id="tasa" name="tasa" step="0.01">
+                    `;
+                    break;
+                case 'tir':
+                    inputsDinamicos.innerHTML = `
+                        <label for="inversion">Inversión Inicial (I):</label>
+                        <input type="number" id="inversion" name="inversion">
+                        <label for="flujos">Flujos Netos de Efectivo (FNE):</label>
+                        <input type="text" id="flujos" name="flujos" placeholder="Ej: 350,380,400,500">
+                    `;
+                    break;
+                case 'cb':
+                    inputsDinamicos.innerHTML = `
+                        <label for="vp-ingresos">Valor Presente de los Ingresos (VP Ingresos):</label>
+                        <input type="number" id="vp-ingresos" name="vp-ingresos">
+                        <label for="vp-egresos">Valor Presente de los Egresos (VP Egresos):</label>
+                        <input type="number" id="vp-egresos" name="vp-egresos">
+                    `;
+                    break;
+                case 'payback':
+                    inputsDinamicos.innerHTML = `
+                        <label for="inversion">Inversión Inicial (I):</label>
+                        <input type="number" id="inversion" name="inversion">
+                        <label for="flujos">Flujos Netos de Efectivo (FNE):</label>
+                        <input type="text" id="flujos" name="flujos" placeholder="Ej: 350,380,400,500">
+                    `;
+                    break;
+            }
+        });
+    
+        function calcular() {
+            const tipoCalculo = document.getElementById('tipo-calculo').value;
+            let resultado = 0;
+    
+            switch (tipoCalculo) {
+                case 'valor-presente-anualidad-vencida':
+                    const cuotaVPV = parseFloat(document.getElementById('cuota').value);
+                    const tasaVPV = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPV = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVPV * (1 - Math.pow(1 + tasaVPV, -periodosVPV)) / tasaVPV;
+                    break;
+                case 'valor-futuro-anualidad-vencida':
+                    const cuotaVFV = parseFloat(document.getElementById('cuota').value);
+                    const tasaVFV = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVFV = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVFV * (Math.pow(1 + tasaVFV, periodosVFV) - 1) / tasaVFV;
+                    break;
+                case 'valor-presente-anualidad-anticipada':
+                    const cuotaVPA = parseFloat(document.getElementById('cuota').value);
+                    const tasaVPA = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPA = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVPA * (1 - Math.pow(1 + tasaVPA, -periodosVPA)) / tasaVPA * (1 + tasaVPA);
+                    break;
+                case 'valor-futuro-anualidad-anticipada':
+                    const cuotaVFA = parseFloat(document.getElementById('cuota').value);
+                    const tasaVFA = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVFA = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVFA * (Math.pow(1 + tasaVFA, periodosVFA) - 1) / tasaVFA * (1 + tasaVFA);
+                    break;
+                case 'valor-presente-gradiente-creciente':
+                    const cuotaVPGC = parseFloat(document.getElementById('cuota').value);
+                    const incrementoVPGC = parseFloat(document.getElementById('incremento').value);
+                    const tasaVPGC = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPGC = parseInt(document.getElementById('periodos').value);
+                    resultado = (cuotaVPGC * ((Math.pow(1 + tasaVPGC, periodosVPGC) - 1) / (tasaVPGC * Math.pow(1 + tasaVPGC, periodosVPGC) ))) + (incrementoVPGC/tasaVPGC * (((Math.pow(1 + tasaVPGC, periodosVPGC) - 1) / (tasaVPGC * Math.pow(1 + tasaVPGC, periodosVPGC)) - (periodosVPGC / (Math.pow(1 + tasaVPGC, periodosVPGC))))));
+                    break;
+                case 'valor-futuro-gradiente-creciente':
+                    const cuotaVFGC = parseFloat(document.getElementById('cuota').value);
+                    const incrementoVFGC = parseFloat(document.getElementById('incremento').value);
+                    const tasaVFGC = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVFGC = parseInt(document.getElementById('periodos').value);
+                    resultado = (cuotaVFGC * ((Math.pow(1 + tasaVFGC, periodosVFGC) - 1) / tasaVFGC)) + (incrementoVFGC/tasaVFGC * ((Math.pow(1 + tasaVFGC, periodosVFGC) - 1) / tasaVFGC - periodosVFGC));
+                    break;
+                case 'valor-presente-gradiente-decreciente':
+                    const cuotaVPGD = parseFloat(document.getElementById('cuota').value);
+                    const decrementoVPGD = parseFloat(document.getElementById('incremento').value);
+                    const tasaVPGD = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPGD = parseInt(document.getElementById('periodos').value);
+                    resultado = (cuotaVPGD * ((Math.pow(1 + tasaVPGD, periodosVPGD) - 1) / (tasaVPGD * Math.pow(1 + tasaVPGD, periodosVPGD) ))) - (decrementoVPGD/tasaVPGD * (((Math.pow(1 + tasaVPGD, periodosVPGD) - 1) / (tasaVPGD * Math.pow(1 + tasaVPGD, periodosVPGD)) - (periodosVPGD / (Math.pow(1 + tasaVPGD, periodosVPGD))))));
+                    break;
+                case 'valor-futuro-gradiente-decreciente':
+                    const cuotaVFGD = parseFloat(document.getElementById('cuota').value);
+                    const decrementoVFGD = parseFloat(document.getElementById('incremento').value);
+                    const tasaVFGD = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVFGD = parseInt(document.getElementById('periodos').value);
+                    resultado = (cuotaVFGD * ((Math.pow(1 + tasaVFGD, periodosVFGD) - 1) / tasaVFGD)) - (decrementoVFGD/tasaVFGD * ((Math.pow(1 + tasaVFGD, periodosVFGD) - 1) / tasaVFGD - periodosVFGD));
+                    break;
+                case 'cuota-gradiente-creciente':
+                    const valor_finalCGC = parseFloat(document.getElementById('vfinal').value);
+                    const incrementoCGC = parseFloat(document.getElementById('incremento').value);
+                    const tasaCGC = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosCGC = parseInt(document.getElementById('periodos').value);
+                    resultado = (valor_finalCGC - (incrementoCGC/tasaCGC * ((Math.pow(1 + tasaCGC, periodosCGC) - 1) / tasaCGC - periodosCGC))) / ((Math.pow(1 + tasaCGC, periodosCGC) - 1) / tasaCGC );
+                    break;
+                case 'cuota-gradiente-decreciente':
+                    const valor_finalCGD = parseFloat(document.getElementById('vfinal').value);
+                    const decrementoCGD = parseFloat(document.getElementById('incremento').value);
+                    const tasaCGD = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosCGD = parseInt(document.getElementById('periodos').value);
+                    resultado = (valor_finalCGD + (decrementoCGD/tasaCGD * ((Math.pow(1 + tasaCGD, periodosCGD) - 1) / tasaCGD - periodosCGD))) / ((Math.pow(1 + tasaCGD, periodosCGD) - 1) / tasaCGD );
+                    break;    
+                case 'valor-presente-gradiente-geometrico-creciente':
+                    const cuotaVPGGC = parseFloat(document.getElementById('cuota').value);
+                    const crecimientoVPGGC = parseFloat(document.getElementById('crecimiento').value) / 100;
+                    const tasaVPGGC = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPGGC = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVPGGC * ((Math.pow(1 + crecimientoVPGGC, periodosVPGGC) - Math.pow(1 + tasaVPGGC, periodosVPGGC)) / ((crecimientoVPGGC - tasaVPGGC) * Math.pow(1 + tasaVPGGC, periodosVPGGC)));
+                    break;
+                case 'valor-presente-gradiente-geometrico-decreciente':
+                    const cuotaVPGGD = parseFloat(document.getElementById('cuota').value);
+                    const decrecimientoVPGGD = parseFloat(document.getElementById('crecimiento').value) / 100;
+                    const tasaVPGGD = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosVPGGD = parseInt(document.getElementById('periodos').value);
+                    resultado = cuotaVPGGD * ((Math.pow(1 + tasaVPGGD, periodosVPGGD) - Math.pow(1 - decrecimientoVPGGD, periodosVPGGD)) / ((tasaVPGGD + decrecimientoVPGGD) * Math.pow(1 + tasaVPGGD, periodosVPGGD)));
+                    break;
+
+                case 'anualidad':
+                    const valorA = parseFloat(document.getElementById('valor').value);
+                    const cuotaA = parseFloat(document.getElementById('cuota').value);
+                    const tasaA = parseFloat(document.getElementById('tasa').value) / 100;
+                    const periodosA = parseInt(document.getElementById('periodos').value);
+                    resultado = valorA * (tasaA * Math.pow(1 + tasaA, periodosA)) / (Math.pow(1 + tasaA, periodosA) - 1);
+                    break;
+                case 'vpn':
+                    const inversion = parseFloat(document.getElementById('inversion').value);
+                    const flujos = document.getElementById('flujos').value.split(',').map(Number);
+                    const tasa = parseFloat(document.getElementById('tasa').value) / 100;
+                    resultado = flujos.reduce((acc, flujo, i) => acc + flujo / Math.pow(1 + tasa, i + 1), -inversion);
+                    break;
+                case 'tir':
+                    const inversionTIR = parseFloat(document.getElementById('inversion').value);
+                    const flujosTIR = document.getElementById('flujos').value.split(',').map(Number);
+                    resultado = calcularTIR(inversionTIR, flujosTIR);
+                    break;
+                case 'cb':
+                    const vpIngresos = parseFloat(document.getElementById('vp-ingresos').value);
+                    const vpEgresos = parseFloat(document.getElementById('vp-egresos').value);
+                    resultado = vpIngresos / vpEgresos;
+                    break;
+                case 'payback':
+                    const inversionPB = parseFloat(document.getElementById('inversion').value);
+                    const flujosPB = document.getElementById('flujos').value.split(',').map(Number);
+                    let acumulado = 0;
+                    for (let i = 0; i < flujosPB.length; i++) {
+                        acumulado += flujosPB[i];
+                        if (acumulado >= inversionPB) {
+                            resultado = i + 1;
+                            break;
+                        }
+                    }
+                    break;
+            }
+            document.getElementById('resultado-valor').innerText = `El resultado es: ${resultado.toFixed(2)}`;
+        }
+        function calcularTIR(inversion, flujos) {
+            const maxIteraciones = 1000;
+            const precision = 1e-7;
+            let tasaInferior = -1.0;
+            let tasaSuperior = 1.0;
+            let tir = (tasaInferior + tasaSuperior) / 2.0;
+            
+            for (let iteracion = 0; iteracion < maxIteraciones; iteracion++) {
+                let vpn = calcularVPN(tir, inversion, flujos);
+                if (Math.abs(vpn) < precision) {
+                    return tir;
+                } else if (vpn > 0) {
+                    tasaInferior = tir;
+                } else {
+                    tasaSuperior = tir;
+                }
+                tir = (tasaInferior + tasaSuperior) / 2.0;
+            }
+            return tir;
+        }
+
+        function calcularVPN(tasa, inversion, flujos) {
+            return flujos.reduce((acc, flujo, i) => acc + flujo / Math.pow(1 + tasa, i + 1), -inversion);
+        }
+    </script>
+    </div>
+</body>
+</html>

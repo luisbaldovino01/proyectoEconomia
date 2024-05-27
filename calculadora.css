@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Plus Jakarta Sans";
+    background-color: #cbcccf;
+    margin: 0;
+}
+
+.contenedor {
+    max-width: 1400px;
+    margin: auto;
+}
+
+header {
+    color: white;
+    background-color: #21262c;
+}
+
+.logo {
+    font-weight: Bold;
+    margin: 0;
+    padding: 25px;
+}
+
+header .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: gray;
+}
+
+header a:hover {
+    cursor: pointer;
+    color: white;
+}
+
+nav {
+    margin-right: 50px;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+h2, h3, h4 {
+    color: #333;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+}
+
+form {
+    margin-top: 1em;
+}
+
+form label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+form input, form select {
+    padding: 0.5em;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+form button {
+    background: #333;
+    color: #fff;
+    padding: 0.7em 1.2em;
+    border: none;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+form button:hover {
+    background: #555;
+}
+
+#resultado {
+    margin-top: 1em;
+    background: #f4f4f4;
+    padding: 1em;
+    border: 1px solid #ddd;
+}
